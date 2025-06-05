@@ -12,9 +12,13 @@ int main() {
 
     char estado1, estado2;
     char codigo1[4], codigo2[4], nome1[40], nome2[40];
-    int populacao1, populacao2, pontostur1,pontostur2;
+    unsigned long int populacao1, populacao2;
+    int pontostur1,pontostur2;
     float area1, area2, pib1, pib2;
     float densidade1, densidade2, pibper1, pibper2;
+    float superpoder1, superpoder2;
+    float invdensidade1, invdensidade2;
+    int rpop, rpontos, rarea, rdensidade, rpib, rpibper, rsuperpoder;
 
     // Cadastro das Cartas:
     // Sugestão: Utilize a função scanf para capturar as entradas do usuário para cada atributo.
@@ -32,7 +36,7 @@ int main() {
     scanf("%s", &nome1);
 
     printf("Digite a população:");
-    scanf("%d", &populacao1);
+    scanf("%u", &populacao1);
 
     printf("Digite a área em km²:");
     scanf("%f", &area1);
@@ -57,7 +61,7 @@ int main() {
     scanf("%s", &nome2);
 
     printf("Digite a população:");
-    scanf("%d", &populacao2);
+    scanf("%u", &populacao2);
 
     printf("Digite a área em km²:");
     scanf("%f", &area2);
@@ -75,6 +79,25 @@ int main() {
 
     pibper1 = pib1 / (float) populacao1;
     pibper2 = pib2 / (float) populacao2;
+
+    //Calculando o super poder
+
+    invdensidade1 = 1 / densidade1;
+    invdensidade2 = 1 / densidade2;
+
+    superpoder1 = (float) populacao1 + area1 + pib1 + (float) pontostur1 + pibper1 + invdensidade1;
+    superpoder2 = (float) populacao2 + area2 + pib2 + (float) pontostur2 + pibper2 + invdensidade2;
+
+    //Comparando Resultados
+
+    rpop = populacao1 > populacao2;
+    rarea = area1 > area2;
+    rpib = pib1 > pib2;
+    rpontos = pontostur1 > pontostur2;
+    rdensidade = densidade1 < densidade2;
+    rpibper = pibper1 > pibper2;
+    rsuperpoder = superpoder1 > superpoder2;
+
 
 
     // Exibição dos Dados das Cartas:
@@ -102,6 +125,18 @@ int main() {
     printf("\nPontos Turísticos:%d", pontostur2);
     printf("\nDensidade Populacional:%.2f hab/km²", densidade2);
     printf("\nPIB per Capita:%.2f reais", pibper2);
+
+    //Exibindo a comparação das Cartas
+
+    printf("\n\n***Comparação das Cartas***");
+    printf("\nPopulaão: Carta 1 vence (%d)", rpop);
+    printf("\nÁrea: Carta 1 vence (%d)", rarea);
+    printf("\nPIB: Carta 1 vence (%d)", rpib);
+    printf("\nPontos Turísticos: Carta 1 vence (%d)", rpontos);
+    printf("\nDensidade: Carta 1 vence (%d)", rdensidade);
+    printf("\nPIB per Capita: Carta 1 vence (%d)", rpibper);
+    printf("\nSuper Poder: Carta 1 vence (%d)", rsuperpoder);
+
 
 
     return 0;
